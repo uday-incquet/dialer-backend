@@ -15,7 +15,10 @@ router.get('/', (req, res) => {
             process.env.TWILIO_ACCOUNT_SID,
             process.env.TWILIO_API_KEY,
             process.env.TWILIO_API_SECRET,
-            { identity: 'user123' }
+            {
+                identity: 'user123',
+                ttl: 86400
+            }
         );
 
         const voiceGrant = new VoiceGrant({
