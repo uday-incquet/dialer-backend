@@ -9,18 +9,23 @@ const VoiceResponse = twilio.twiml.VoiceResponse;
 
 router.post('/outgoing', (req, res) => {
     const twiml = new VoiceResponse();
-    const dial = twiml.dial({
-        callerId: process.env.TWILIO_PHONE_NUMBER
-    });
-
     const phoneNumber = req.body.To;
-    console.log('Outgoing call to:', phoneNumber);
-    if (phoneNumber) {
+    if (phoneNumber && phoneNumber !== twilioNumber) {
+        console.log('Making outbound call to:', phoneNumber);
+
+        const dial = twiml.dial({
+            callerId: twilioNumber
+        });
         dial.number(phoneNumber);
     } else {
-        twiml.say('Sorry, we could not complete your call.');
+        console.log('No valid outbound number or calling self');
+        // Return empty response like Python version
+        res.type('text/xml');
+        res.send('');
+        return;
     }
 
+    console.log('Generated TwiML:', twiml.toString());
     res.type('text/xml');
     res.send(twiml.toString());
 });
