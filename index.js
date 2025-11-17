@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 
 dotenv.config();
 
-app.use('/api/voice', voiceRoutes);
-app.use('/api/token', tokenRoutes);
+app.use('/voice', voiceRoutes);
+app.use('/token', tokenRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

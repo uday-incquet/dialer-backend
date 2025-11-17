@@ -14,7 +14,7 @@ router.post('/outgoing', (req, res) => {
     });
 
     const phoneNumber = req.body.To;
-
+    console.log('Outgoing call to:', phoneNumber);
     if (phoneNumber) {
         dial.number(phoneNumber);
     } else {
