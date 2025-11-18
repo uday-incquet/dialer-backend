@@ -22,8 +22,9 @@ router.get('/', (req, res) => {
         );
 
         const voiceGrant = new VoiceGrant({
-            outgoingApplicationSid: process.env.TWILIO_TWIML_APP_SID,
+            outgoingApplicationSid: process.env.TWIML_APP_SID,
             incomingAllow: true,
+            outgoingAllow: true
         });
 
         token.addGrant(voiceGrant);
