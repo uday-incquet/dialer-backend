@@ -10,8 +10,10 @@ const VoiceResponse = twilio.twiml.VoiceResponse;
 router.post('/outgoing', (req, res) => {
     const twiml = new VoiceResponse();
     const twilioNumber = '+12176018762';
-
+    console.log('body ====>', req.body)
     if (req.body.Direction === 'inbound') {
+
+        console.log('Handling inbound call from:', req.body.From);
         const twiml = new VoiceResponse();
 
         const dial = twiml.dial();
@@ -20,27 +22,28 @@ router.post('/outgoing', (req, res) => {
         res.type('text/xml');
         res.send(twiml.toString());
         return;
-    }
-
-    const phoneNumber = req.body.To;
-    if (phoneNumber && phoneNumber !== twilioNumber) {
-        console.log('Making outbound call to:', phoneNumber);
-
-        const dial = twiml.dial({
-            callerId: twilioNumber
-        });
-        dial.number(phoneNumber);
     } else {
-        console.log('No valid outbound number or calling self');
-        // Return empty response like Python version
-        res.type('text/xml');
-        res.send('');
-        return;
-    }
+        console.log('Handling outbound call to:', req.body.To);
+        const phoneNumber = req.body.To;
+        if (phoneNumber && phoneNumber !== twilioNumber) {
+            console.log('Making outbound call to:', phoneNumber);
 
-    console.log('Generated TwiML:', twiml.toString());
-    res.type('text/xml');
-    res.send(twiml.toString());
+            const dial = twiml.dial({
+                callerId: twilioNumber
+            });
+            dial.number(phoneNumber);
+        } else {
+            console.log('No valid outbound number or calling self');
+            // Return empty response like Python version
+            res.type('text/xml');
+            res.send('');
+            return;
+        }
+
+        console.log('Generated TwiML:', twiml.toString());
+        res.type('text/xml');
+        res.send(twiml.toString());
+    }
 });
 
 // Handle incoming calls
