@@ -9,6 +9,7 @@ const VoiceResponse = twilio.twiml.VoiceResponse;
 
 router.post('/outgoing', (req, res) => {
     const twiml = new VoiceResponse();
+    const twilioNumber = '+12176018762';
     const phoneNumber = req.body.To;
     if (phoneNumber && phoneNumber !== twilioNumber) {
         console.log('Making outbound call to:', phoneNumber);
