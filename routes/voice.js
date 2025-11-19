@@ -11,7 +11,8 @@ router.post('/outgoing', (req, res) => {
     const twiml = new VoiceResponse();
     const twilioNumber = '+12176018762';
     console.log('body ====>', req.body)
-    if (!req.body.From.startsWith('client')) {
+    console.log("From:", req.body.From, " ", req.body.From.startsWith('client'));
+    if (!req.body.callDirection === 'outgoing') {
 
         console.log('Handling inbound call from:', req.body.From);
         const twiml = new VoiceResponse();
