@@ -30,7 +30,10 @@ router.post('/outgoing', (req, res) => {
             console.log('Making outbound call to:', phoneNumber);
 
             const dial = twiml.dial({
-                callerId: twilioNumber
+                callerId: twilioNumber,
+                answerOnBridge: true,
+                timeout: 30,
+                statusCallbackEvent: ['initiated', 'ringing', 'answered', 'completed'],
             });
             dial.number(phoneNumber);
         } else {
