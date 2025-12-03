@@ -7,9 +7,12 @@ import twilio from 'twilio';
 const router = express.Router();
 const VoiceResponse = twilio.twiml.VoiceResponse;
 
-router.post('/outgoing', (req, res) => {
+router.post('/outgoing/:orgId', (req, res) => {
     const twiml = new VoiceResponse();
     const twilioNumber = '+12176018762';
+    console.lgo(req.params);
+    let orgId = req.params?.orgId;
+    console.lgo(orgId);
     console.log('body ====>', req.body)
     console.log("From:", req.body.From, " ", req.body.From.startsWith('client'));
     if (!req.body.callDirection || req.body.callDirection !== 'outgoing') {
