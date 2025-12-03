@@ -10,9 +10,9 @@ const VoiceResponse = twilio.twiml.VoiceResponse;
 router.post('/outgoing/:orgId', (req, res) => {
     const twiml = new VoiceResponse();
     const twilioNumber = '+12176018762';
-    console.lgo(req.params);
+    console.log(req.params);
     let orgId = req.params?.orgId;
-    console.lgo(orgId);
+    console.log(orgId);
     console.log('body ====>', req.body)
     console.log("From:", req.body.From, " ", req.body.From.startsWith('client'));
     if (!req.body.callDirection || req.body.callDirection !== 'outgoing') {
